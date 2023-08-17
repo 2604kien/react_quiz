@@ -1,9 +1,10 @@
 import React from "react";
 
 export default function Answer(props){
-    
-    const [colorState, setColorState]= React.useState("");
-    
+    const [colorState, setColorState]= React.useState("white");
+    React.useEffect(()=>{
+        setColorState("white");
+    }, [props.reset]);
     React.useEffect(()=>{
         if(props.isHit===true) {
         if(props.answer===props.correctAnswer){
@@ -13,7 +14,6 @@ export default function Answer(props){
     },[props.isHit])
   
     function hitAnswer(){
-        console.log(props.answer);
         if(props.isHit===false) {
             props.checkCorrectAnswer();
             if(props.answer===props.correctAnswer){
@@ -24,7 +24,6 @@ export default function Answer(props){
             }
         }
         
-        console.log(props.isHit);
     }
   
     return (
