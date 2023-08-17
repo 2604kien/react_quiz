@@ -10,7 +10,7 @@ export default function Quiz(props){
 
     React.useEffect(()=>{
         setList(generateRandomAnswer());
-    },[])
+    },[props.reset, props.question])
     function generateRandomAnswer(){
         let allAnswer=props.question.incorrect_answers;
         allAnswer.push(props.correctAnswer);
@@ -18,12 +18,12 @@ export default function Quiz(props){
             const j=Math.floor(Math.random()*(i+1));
             [allAnswer[i], allAnswer[j]]=[allAnswer[j], allAnswer[i]];
         }
-        return allAnswer
+        return allAnswer;
     }
 
     
     function checkCorrectAnswer(){
-        setHit(!isHit);
+        setHit(prev=>!prev);
         props.addPoint(prev=>prev+1);
 
     }
