@@ -2,27 +2,40 @@ import React from "react";
 import Answer from "./Answer";
 
 export default function Quiz(props){
-    let allAnswer=props.question.incorrect_answers;
-  
+    
+    const [listAnswer, setList]=React.useState([]);
+    const[isHit, setHit]=React.useState(false);
 
-    allAnswer.push(props.correctAnswer);
-    console.log(allAnswer);
+    
+
+    React.useEffect(()=>{
+        setList(generateRandomAnswer());
+    },[])
     function generateRandomAnswer(){
-
+        let allAnswer=props.question.incorrect_answers;
+        allAnswer.push(props.correctAnswer);
         for(let i=allAnswer.length-1; i>0; i--){
-            let j=Math.floor(Math.random()*(i+1));
+            const j=Math.floor(Math.random()*(i+1));
             [allAnswer[i], allAnswer[j]]=[allAnswer[j], allAnswer[i]];
         }
-        return allAnswer;
+        return allAnswer
     }
-    allAnswer=generateRandomAnswer()
-    const answerElement=allAnswer.map((answer, index)=><Answer key={index} answer={answer}/>)
+
+    
+    function checkCorrectAnswer(){
+        setHit(!isHit);
+        props.addPoint(prev=>prev+1);
+
+    }
+    const answerElement=listAnswer.map((answer, index)=><Answer key={index} checkCorrectAnswer={checkCorrectAnswer} isHit={isHit} answer={answer} correctAnswer={props.correctAnswer}/>)
+
+
     return (
         <div>
         <div className="quiz">
             <h2 className="quizz--question">Question: {props.question.question.replace(/&quot;/g, '"').replace(/&#039;/g,"'")}</h2>
-            <h4 className="quiz--answer">Answer:</h4>
-            <div>
+            <h4 className="quiz--answerTitle">Answer:</h4>
+            <div className="quiz--answer">
             {answerElement}
             </div>
         </div>
