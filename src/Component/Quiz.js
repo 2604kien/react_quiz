@@ -34,7 +34,7 @@ export default function Quiz(props){
     return (
         <div>
         <div className="quiz">
-            <h2 className="quizz--question">Question: {props.question.question.replace(/&quot;/g, '"').replace(/&#039;/g,"'")}</h2>
+            <h2 className="quizz--question">Question {props.id+1}: {props.question.question.replace(/&quot;/g, '"').replace(/&#039;/g,"'")}</h2>
             <h4 className="quiz--answerTitle">Answer:</h4>
             <div className="quiz--answer">
             {answerElement}
