@@ -28,7 +28,7 @@ export default function Answer(props){
   
     return (
         <div style={{backgroundColor: colorState}} onClick={hitAnswer} className="answerBox">
-            {props.answer}
+            {props.answer.replace(/&quot;/g, '"').replace(/&#039;/g,"'")}
         </div>
     )
 }
